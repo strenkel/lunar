@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html onkeyup="navigate(event)">
+
+<head>
+  <meta HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Lunar Lander</title>
+  <meta name="description" content="Recoding of Jim Storer's lunar lander from 1969.">
+  <meta name="keywords" content="Moon Lander, Lunar Lander, Lunar Landing Game, Jim Storer, 1969">
+  <meta name="author" content="Stefan Trenkel">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body id="">
+
+  <div id="menu">
+    <a href="info.html">INFO</a>   
+  </div>
+
+  <div id="console-root">
+    <div class="console-line">RECODING OF JIM STORER'S LUNAR LANDING GAME FROM 1969.</div>
+    <div class="console-line">&nbsp;</div>
+    <div class="console-line">PRESS ENTER TO START.</div>
+  </div>
+
+</body>
+
+<script>
+  var navigate = function(event) {
+    if (event.keyCode === 13) {
+      window.location.href = "lunar.html";
+    }
+  };
+</script>
+
+</html>
