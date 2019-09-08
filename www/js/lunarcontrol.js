@@ -1,15 +1,23 @@
-var lunarcontrol = {};
-
-/**
- * Controls all out- and inputs.
- *
- * inout is an object implementing two functions log and prompt.
- * log should accept a string for output and prompt should accept a string for output and a callback function for input.
- * The callback should pass in the input as a string.
- */
-lunarcontrol.run = function(inout) {
+var lunarcontrol = (function() {
 
   "use strict";
+
+  var inOut;
+
+  /**
+   * Controls all in- and outputs.
+   *
+   * inout is an object implementing two functions log and prompt.
+   * log should accept a string for output and prompt should accept a string for output
+   * and a callback function for input. The callback should be called with the string input.
+   */
+  var run = function(myInOut) {
+
+    inOut = myInOut;
+
+    logIntro();
+    doLanding();
+  };
 
   const createLLIterator = require('./lunarcalc.js/index.js').createLLIterator;
 
@@ -32,18 +40,18 @@ lunarcontrol.run = function(inout) {
   };
 
   const logIntro = function() {
-    inout.log("CONTROL CALLING LUNAR MODULE. MANUAL CONTROL IS NECESSARY");
-    inout.log("YOU MAY RESET FUEL RATE K EACH 10 SECS TO 0 OR ANY VALUE");
-    inout.log("BETWEEN 8 & 200 LBS/SEC. YOU'VE 16000 LBS FUEL. ESTIMATED");
-    inout.log("FREE FALL IMPACT TIME-120 SECS. CAPSULE WEIGHT-32500 LBS");
+    inOut.log("CONTROL CALLING LUNAR MODULE. MANUAL CONTROL IS NECESSARY");
+    inOut.log("YOU MAY RESET FUEL RATE K EACH 10 SECS TO 0 OR ANY VALUE");
+    inOut.log("BETWEEN 8 & 200 LBS/SEC. YOU'VE 16000 LBS FUEL. ESTIMATED");
+    inOut.log("FREE FALL IMPACT TIME-120 SECS. CAPSULE WEIGHT-32500 LBS");
   };
 
   const logHeader = function() {
-    inout.log("FIRST RADAR CHECK COMING UP");
-    inout.log();
-    inout.log();
-    inout.log("COMMENCE LANDING PROCEDURE");
-    inout.log("TIME,SECS   ALTITUDE,MILES+FEET   VELOCITY,MPH   FUEL,LBS   FUEL RATE");
+    inOut.log("FIRST RADAR CHECK COMING UP");
+    inOut.log();
+    inOut.log();
+    inOut.log("COMMENCE LANDING PROCEDURE");
+    inOut.log("TIME,SECS   ALTITUDE,MILES+FEET   VELOCITY,MPH   FUEL,LBS   FUEL RATE");
   };
 
   const doLanding = function() {
@@ -60,7 +68,7 @@ lunarcontrol.run = function(inout) {
         return;
       }
 
-      inout.prompt(getResultLine(next.value), function(input) {
+      inOut.prompt(getResultLine(next.value), function(input) {
         validateInput(input, nextStep);
       });
     };
@@ -73,7 +81,7 @@ lunarcontrol.run = function(inout) {
     if (Number.isFinite(K) && (K === 0 || K >= 8 && K <= 200)) {
       callback(K);
     } else {
-      inout.prompt("NOT POSSIBLE" + ".".repeat(51) + "K=:", function(nextInput) {
+      inOut.prompt("NOT POSSIBLE" + ".".repeat(51) + "K=:", function(nextInput) {
         validateInput(nextInput, callback);
       });
     }
@@ -102,50 +110,50 @@ lunarcontrol.run = function(inout) {
 
     if (value.fuelOutAt) {
       var l = round(value.fuelOutAt, 2).padStart(8);
-      inout.log(`FUEL OUT AT ${l} SECS`);
+      inOut.log(`FUEL OUT AT ${l} SECS`);
     }
 
     var t = round(value.time, 2).padStart(8);
-    inout.log(`ON THE MOON AT ${t} SECS`);
+    inOut.log(`ON THE MOON AT ${t} SECS`);
 
     var W = 3600 * value.velocity;
     var w = round(W, 2).padStart(6);
-    inout.log(`IMPACT VELOCITY OF ${w} M.P.H.`);
+    inOut.log(`IMPACT VELOCITY OF ${w} M.P.H.`);
 
     var mn = round(value.fuel, 2).padStart(6);
-    inout.log(`FUEL LEFT: ${mn} LBS`);
+    inOut.log(`FUEL LEFT: ${mn} LBS`);
 
     if (W < 1) {
-      inout.log("PERFECT LANDING !-(LUCKY)");
+      inOut.log("PERFECT LANDING !-(LUCKY)");
     } else if (W < 10) {
-      inout.log("GOOD LANDING-(COULD BE BETTER)");
+      inOut.log("GOOD LANDING-(COULD BE BETTER)");
     } else if (W < 22) {
-      inout.log("CONGRATULATIONS ON A POOR LANDING");
+      inOut.log("CONGRATULATIONS ON A POOR LANDING");
     } else if (W < 40) {
-      inout.log("CRAFT DAMAGE. GOOD LUCK")
+      inOut.log("CRAFT DAMAGE. GOOD LUCK")
     } else if (W < 60) {
-      inout.log("CRASH LANDING-YOU'VE 5 HRS OXYGEN")
+      inOut.log("CRASH LANDING-YOU'VE 5 HRS OXYGEN")
     } else {
-      inout.log("SORRY,BUT THERE WHERE NO SURVIVORS-YOU BLEW IT!");
+      inOut.log("SORRY,BUT THERE WHERE NO SURVIVORS-YOU BLEW IT!");
       var deep = round(W * 0.277777, 2).padStart(9);
-      inout.log(`IN FACT YOU BLASTED A NEW LUNAR CRATER ${deep} FT. DEEP`);
+      inOut.log(`IN FACT YOU BLASTED A NEW LUNAR CRATER ${deep} FT. DEEP`);
     }
-    inout.log("");
-    inout.log("");
-    inout.log("");
-    inout.log("TRY AGAIN?");
+    inOut.log("");
+    inOut.log("");
+    inOut.log("");
+    inOut.log("TRY AGAIN?");
     tryAgain();
   };
 
   const tryAgain = function() {
-    inout.prompt("(ANS. YES OR NO):", function(answer) {
+    inOut.prompt("(ANS. YES OR NO):", function(answer) {
       if (answer === "YES") {
-        inout.log("");
-        inout.log("");
-        inout.log("");
+        inOut.log("");
+        inOut.log("");
+        inOut.log("");
         doLanding();
       } else if (answer === "NO") {
-        inout.log("CONTROL OUT");
+        inOut.log("CONTROL OUT");
         rl.close();
       } else {
         tryAgain();
@@ -153,7 +161,8 @@ lunarcontrol.run = function(inout) {
     });
   };
 
-  logIntro();
-  doLanding();
+  return {
+    run: run
+  };
 
-};
+}) ();
