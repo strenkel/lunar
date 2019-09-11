@@ -1,6 +1,6 @@
-const readline = require('readline');
+var readline = require('readline');
 
-const rl = readline.createInterface({
+var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
@@ -10,7 +10,7 @@ const rl = readline.createInterface({
  * @param {Integer} d
  * @returns {String} 
  */
-const round = function(x, d) {
+var round = function(x, d) {
 
   var trunc = Math.trunc(x);
   var decimals = Math.abs(x - trunc);
@@ -39,7 +39,7 @@ var Q;
 var T;
 
 // 1.04 - 1.50
-const intro = function() {
+var intro = function() {
   console.log();
   console.log();
   console.log();
@@ -51,7 +51,7 @@ const intro = function() {
 };
 
 // 1.20 -1.50
-const start = function() {
+var start = function() {
   console.log("FIRST RADAR CHECK COMING UP");
   console.log();
   console.log();
@@ -64,7 +64,7 @@ const start = function() {
   nextIteration();
 };
 
-const nextIteration = function() {
+var nextIteration = function() {
 
   // 2.10 - 2.20
   var l = L.toString().padStart(8, " ");
@@ -81,7 +81,7 @@ const nextIteration = function() {
   });
 };
 
-const calculateNextIteration = function() {
+var calculateNextIteration = function() {
   T = 10;
   // 3.10
   while (true) {
@@ -119,7 +119,7 @@ const calculateNextIteration = function() {
 };
 
 // 4.10, 4.40
-const fuelOut = function() {
+var fuelOut = function() {
   var l = round(L, 2).padStart(8);
   console.log(`FUEL OUT AT ${l} SECS`);
   S = (Math.sqrt(V * V + 2 * A * G) - V) / G;
@@ -129,7 +129,7 @@ const fuelOut = function() {
 };
 
 // 5.10 - 5.90
-const onTheMoon = function() {
+var onTheMoon = function() {
   var l = round(L, 2).padStart(8);
   console.log(`ON THE MOON AT ${l} SECS`);
   W = 3600 * V;
@@ -160,7 +160,7 @@ const onTheMoon = function() {
 };
 
 // 5.92 - 5.98
-const tryAgain = function() {
+var tryAgain = function() {
   rl.question("(ANS. YES OR NO):", function(answer) {
     if (answer === "YES") {
       start();
@@ -176,7 +176,7 @@ const tryAgain = function() {
   });
 };
 
-const f6 = function() {
+var f6 = function() {
   L = L + S;
   T = T - S;
   M = M - S * K;
@@ -184,7 +184,7 @@ const f6 = function() {
   V = J;
 };
 
-const f7 = function() {
+var f7 = function() {
   while (S >= 0.005) {
     S = 2 * A / (V + Math.sqrt(V * V + 2 * A * (G - Z * K / M)));
     f9();
@@ -193,7 +193,7 @@ const f7 = function() {
   onTheMoon();
 };
 
-const f8 = function() {
+var f8 = function() {
   while (true) {
     W = (1 - M * G / (Z * K)) / 2;
     S = M * V / (Z * K * (W + Math.sqrt(W * W + V / Z))) + 0.05;
@@ -209,7 +209,7 @@ const f8 = function() {
   }
 };
 
-const f9 = function() {
+var f9 = function() {
   Q = S * K / M;
   J = V + G * S + Z * (-Q - Q ** 2 / 2 - Q ** 3 / 3 - Q ** 4 / 4 - Q ** 5 / 5);
   I = A - G * S * S / 2 - V * S + Z * S * (Q / 2 + Q ** 2 / 6 + Q ** 3 / 12 + Q ** 4 / 20 + Q ** 5 / 30);

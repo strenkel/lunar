@@ -1,13 +1,18 @@
-var lunarcontrol = (function() {
+/**
+ * Object with method 'run'.
+ */
+var lunarcontrol = (function(myLunarCalc) {
 
   "use strict";
 
   var inOut;
 
+  // --- PUBLIC METHODS ---
+
   /**
    * Controls all in- and outputs.
    *
-   * inout is an object implementing two functions log and prompt.
+   * myInOut is an object implementing two functions log and prompt.
    * log should accept a string for output and prompt should accept a string for output
    * and a callback function for input. The callback should be called with the string input.
    */
@@ -19,14 +24,14 @@ var lunarcontrol = (function() {
     doLanding();
   };
 
-  const createLLIterator = require('./lunarcalc.js/index.js').createLLIterator;
+  // --- PRIVATE METHODS ---
 
   /**
    * @param {Number} x 
    * @param {Integer} d digits, d > 0 
    * @returns {String}
    */
-  const round = function(x, d) {
+  var round = function(x, d) {
 
     var trunc = Math.trunc(x);
     var decimals = Math.abs(x - trunc);
@@ -39,14 +44,14 @@ var lunarcontrol = (function() {
     return trunc.toString() + "." + dDecimalString;
   };
 
-  const logIntro = function() {
+  var logIntro = function() {
     inOut.log("CONTROL CALLING LUNAR MODULE. MANUAL CONTROL IS NECESSARY");
     inOut.log("YOU MAY RESET FUEL RATE K EACH 10 SECS TO 0 OR ANY VALUE");
     inOut.log("BETWEEN 8 & 200 LBS/SEC. YOU'VE 16000 LBS FUEL. ESTIMATED");
     inOut.log("FREE FALL IMPACT TIME-120 SECS. CAPSULE WEIGHT-32500 LBS");
   };
 
-  const logHeader = function() {
+  var logHeader = function() {
     inOut.log("FIRST RADAR CHECK COMING UP");
     inOut.log();
     inOut.log();
@@ -54,14 +59,14 @@ var lunarcontrol = (function() {
     inOut.log("TIME,SECS   ALTITUDE,MILES+FEET   VELOCITY,MPH   FUEL,LBS   FUEL RATE");
   };
 
-  const doLanding = function() {
+  var doLanding = function() {
 
     logHeader();
-    const llIterator = createLLIterator();
+    var lunarIterator = myLunarCalc.createIterator();
 
-    const nextStep = function(K) {
+    var nextStep = function(K) {
 
-      var next = llIterator.next(K);
+      var next = lunarIterator.next(K);
 
       if (next.done) {
         printResult(next.value);
@@ -76,7 +81,7 @@ var lunarcontrol = (function() {
     nextStep();
   };
 
-  const validateInput = function(input, callback) {
+  var validateInput = function(input, callback) {
     var K = Number.parseInt(input);
     if (Number.isFinite(K) && (K === 0 || K >= 8 && K <= 200)) {
       callback(K);
@@ -91,7 +96,7 @@ var lunarcontrol = (function() {
    * @param {*} value
    * @returns {String} 
    */
-  const getResultLine = function(value) {
+  var getResultLine = function(value) {
     var L = value.time;
     var A = value.altitude;
     var V = value.velocity;
@@ -106,7 +111,7 @@ var lunarcontrol = (function() {
     return `${l}${aMiles}${aFeet}${v}${fuel}      K=:`;
   };
 
-  const printResult = function(value) {
+  var printResult = function(value) {
 
     if (value.fuelOutAt) {
       var l = round(value.fuelOutAt, 2).padStart(8);
@@ -145,7 +150,7 @@ var lunarcontrol = (function() {
     tryAgain();
   };
 
-  const tryAgain = function() {
+  var tryAgain = function() {
     inOut.prompt("(ANS. YES OR NO):", function(answer) {
       if (answer === "YES") {
         inOut.log("");
@@ -165,4 +170,4 @@ var lunarcontrol = (function() {
     run: run
   };
 
-}) ();
+}) (lunarcalc);

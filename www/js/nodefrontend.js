@@ -1,10 +1,10 @@
-const readline = require('readline');
-const rl = readline.createInterface({
+var readline = require('readline');
+var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-const Logger = {
+var Logger = {
   log: console.log,
   prompt: rl.question.bind(rl)
 };

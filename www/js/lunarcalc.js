@@ -1,4 +1,9 @@
-exports.createLLIterator = function() {
+var lunarcalc = {};
+
+/**
+ * Function, that returns an iterator (object with method 'next') doing the lunar landing calculation.
+ */
+lunarcalc.createIterator = function() {
 
   // Initial values; state of the iterator
   var L = 0; // Time (seconds)
@@ -6,10 +11,10 @@ exports.createLLIterator = function() {
   var V = 1; // Velocity (miles/second)
   var M = 32500; // Total weight (LBS)
 
-  // Constants
-  const N = 16500; // Capsule weight (LBS)
-  const G = 0.001; // Gravity (miles/second**2)
-  const Z = 1.8;
+  // varants
+  var N = 16500; // Capsule weight (LBS)
+  var G = 0.001; // Gravity (miles/second**2)
+  var Z = 1.8;
 
   // helper vars
   var S; // Time (seconds)
@@ -21,11 +26,13 @@ exports.createLLIterator = function() {
   var doIteration = false;
   var done = false;
 
+  // --- PUBLIC METHODS ---
+
   /**
    * 
    * @param {Number} myK Fuel Rate (LBS/SEC)
    */
-  const next = function(myK) {
+  var next = function(myK) {
 
     K = myK;
     T = 10;
@@ -90,12 +97,12 @@ exports.createLLIterator = function() {
 
   };
 
-  // -- private methods --
+  // -- PRIVATE METHODS --
 
   /**
    * Line 04.40.
    */
-  const calcFreeFall = function() {
+  var calcFreeFall = function() {
     S = (Math.sqrt(V * V + 2 * A * G) - V) / G;
     V = V + G * S;
     L = L + S;
@@ -104,7 +111,7 @@ exports.createLLIterator = function() {
   /**
    * Block 06.
    */
-  const transferNewValues = function() {
+  var transferNewValues = function() {
     L = L + S;
     T = T - S;
     M = M - S * K;
@@ -115,7 +122,7 @@ exports.createLLIterator = function() {
   /**
    * Block 07.
    */
-  const calcOnTheMoon = function() {
+  var calcOnTheMoon = function() {
     while (S >= 0.005) {
       S = 2 * A / (V + Math.sqrt(V * V + 2 * A * (G - Z * K / M)));
       calcNewAltitudeAndVelocity();
@@ -126,7 +133,7 @@ exports.createLLIterator = function() {
   /**
    * Block 08.
    */
-  const calcDeepestPoint = function() {
+  var calcDeepestPoint = function() {
     while (true) {
       var W = (1 - M * G / (Z * K)) / 2;
       S = M * V / (Z * K * (W + Math.sqrt(W * W + V / Z))) + 0.05;
@@ -146,7 +153,7 @@ exports.createLLIterator = function() {
   /**
    * Block 09.
    */
-  const calcNewAltitudeAndVelocity = function() {
+  var calcNewAltitudeAndVelocity = function() {
     var Q = S * K / M;
     // new velocity
     J = V + G * S + Z * (-Q - Q ** 2 / 2 - Q ** 3 / 3 - Q ** 4 / 4 - Q ** 5 / 5);
