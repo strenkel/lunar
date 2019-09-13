@@ -17,7 +17,6 @@ body {
   height: 3.5em;
   line-height: 3.5em;
   text-align: right;
-  font-size: 0.8em;
 }
 
 #menu a {
@@ -39,7 +38,7 @@ body {
   font-size: 1em;
   margin: 0.1em auto;
   display: block;
-  width: 48em; 
+  width: 45em; 
 }
 
 a.console-line {
