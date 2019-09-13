@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html onkeyup="navigate(event)">
+<html onkeyup="navigate(event)" ontouchstart="navigate('touch')">
 
 <head>
   <meta HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
@@ -28,7 +28,7 @@
 
 <script>
   var navigate = function(event) {
-    if (event.keyCode === 13) {
+    if (event === "touch" || event.keyCode === 13) {
       window.location.href = "lunar.html";
     }
   };
