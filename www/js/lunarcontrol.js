@@ -122,10 +122,10 @@ var lunarcontrol = (function(myLunarCalc) {
     inOut.log(`ON THE MOON AT ${t} SECS`);
 
     var W = 3600 * value.velocity;
-    var w = round(W, 2).padStart(6);
+    var w = round(W, 2).padStart(8);
     inOut.log(`IMPACT VELOCITY OF ${w} M.P.H.`);
 
-    var mn = round(value.fuel, 2).padStart(6);
+    var mn = round(value.fuel, 2).padStart(8);
     inOut.log(`FUEL LEFT: ${mn} LBS`);
 
     if (W < 1) {
@@ -139,8 +139,8 @@ var lunarcontrol = (function(myLunarCalc) {
     } else if (W < 60) {
       inOut.log("CRASH LANDING-YOU'VE 5 HRS OXYGEN")
     } else {
-      inOut.log("SORRY,BUT THERE WHERE NO SURVIVORS-YOU BLEW IT!");
-      var deep = round(W * 0.277777, 2).padStart(9);
+      inOut.log("SORRY,BUT THERE WERE NO SURVIVORS-YOU BLEW IT!");
+      var deep = round(W * 0.277777, 2).padStart(8);
       inOut.log(`IN FACT YOU BLASTED A NEW LUNAR CRATER ${deep} FT. DEEP`);
     }
     inOut.log("");
