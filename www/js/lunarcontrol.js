@@ -33,15 +33,19 @@ var lunarcontrol = (function(myLunarCalc) {
    */
   var round = function(x, d) {
 
+    var pow = Math.pow(10, d);
+    var x = Math.round(x * pow) / pow; 
     var trunc = Math.trunc(x);
     var decimals = Math.abs(x - trunc);
+    trunc = Math.abs(trunc);
+    var sign = x < 0 ? "-" : "";
 
     var dDecimalString = decimals
       .toString()
       .substr(2, d)
       .padEnd(d, "0");
 
-    return trunc.toString() + "." + dDecimalString;
+    return sign + trunc.toString() + "." + dDecimalString;
   };
 
   var logIntro = function() {
