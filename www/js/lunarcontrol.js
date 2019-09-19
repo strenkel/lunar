@@ -27,6 +27,9 @@ var lunarcontrol = (function(myLunarCalc) {
   // --- PRIVATE METHODS ---
 
   /**
+   * round(1.1234, 2) = "1.12"
+   * round(1.995, 2) = "2.00"
+   * 
    * @param {Number} x 
    * @param {Integer} d digits, d > 0 
    * @returns {String}
