@@ -11,7 +11,7 @@ lunarcalc.createIterator = function() {
   var V = 1; // Velocity (miles/second)
   var M = 32500; // Total weight (LBS)
 
-  // varants
+  // constants
   var N = 16500; // Capsule weight (LBS)
   var G = 0.001; // Gravity (miles/second**2)
   var Z = 1.8;
