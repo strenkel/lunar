@@ -9,6 +9,10 @@ body {
   margin: 0 0 0 0;
 }
 
+a {
+  color: white;
+}
+
 #menu {
   position: absolute;
   top: 0;
@@ -20,7 +24,6 @@ body {
 }
 
 #menu a {
-  color: white;
   margin: 0 4em;
 }
 
@@ -36,13 +39,10 @@ body {
   color: white;
   font-family: monospace;
   font-size: 1em;
-  margin: 0.1em auto;
+  margin: 0 auto;
   display: block;
-  width: 45em; 
-}
-
-a.console-line {
-  margin: 0.4em auto;
+  width: 45em;
+  line-height: 1.4em;
 }
 
 @media (max-width: 760px) {
