@@ -1,3 +1,9 @@
+/**
+ * Transcription of Storer's lunar lander FOCAL code to JavaScript.
+ * Variable names and line numbers are taken from there. See:
+ * https://www.cs.brandeis.edu/~storer/LunarLander/LunarLander/LunarLanderListing.jpg 
+ */
+
 var lunarcalc = {};
 
 /**
@@ -14,7 +20,7 @@ lunarcalc.createIterator = function() {
   // constants
   var N = 16500; // Capsule weight (LBS)
   var G = 0.001; // Gravity (miles/second**2)
-  var Z = 1.8;
+  var Z = 1.8; // Fuel exhaust velocity (miles/seconds)
 
   // helper vars
   var S; // Time (seconds)
@@ -29,13 +35,12 @@ lunarcalc.createIterator = function() {
   // --- PUBLIC METHODS ---
 
   /**
-   * 
    * @param {Number} myK Fuel Rate (LBS/SEC)
    */
   var next = function(myK) {
 
     K = myK;
-    T = 10;
+    T = 10; // Time in seconds for one breaking iteration
 
     while (doIteration && !done) {
 
@@ -59,7 +64,7 @@ lunarcalc.createIterator = function() {
         S = (M - N) / K;
       }
 
-      // 3.50
+      // Line 3.50
       calcNewAltitudeAndVelocity();
 
       // New hight less than zero -> on the moon
@@ -155,7 +160,8 @@ lunarcalc.createIterator = function() {
    */
   var calcNewAltitudeAndVelocity = function() {
     var Q = S * K / M;
-    // new velocity
+    // New velocity based on Tsiolkovsky rocket equation.
+    // Taylor series of ln(1-Q) is used.
     J = V + G * S + Z * (-Q - Q ** 2 / 2 - Q ** 3 / 3 - Q ** 4 / 4 - Q ** 5 / 5);
     // new altitude
     I = A - G * S * S / 2 - V * S + Z * S * (Q / 2 + Q ** 2 / 6 + Q ** 3 / 12 + Q ** 4 / 20 + Q ** 5 / 30);
