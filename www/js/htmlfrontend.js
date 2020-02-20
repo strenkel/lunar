@@ -7,8 +7,6 @@
     window.scrollTo(0, document.body.scrollHeight);
   };
 
-  
-
   var log = function(message) {
     clearForm();
     var input = createInputElm(message);

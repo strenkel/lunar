@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html onkeyup="navigate(event)" ontouchend="navigate('touch')">
+<html onkeyup="navigate(event)" onclick="navigate('click')">
 
 <head>
   <meta HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
@@ -19,19 +19,18 @@
   </div>
 
   <div id="console-root">
-      <div class="console-line">LUNAR LANDER SIMULATOR</div>
-      <div class="console-line">----------------------</div>
-      <div class="console-line">&nbsp;</div>
+    <div class="console-line">LUNAR LANDER SIMULATOR</div>
+    <div class="console-line">----------------------</div>
+    <div class="console-line">&nbsp;</div>
     <div class="console-line">RECODING OF JIM STORER'S LUNAR LANDING GAME FROM 1969.</div>
-    
-    <div class="console-line">PRESS ENTER TO START!</div>
+    <div class="console-line">PRESS ENTER, CLICK OR TOUCH TO START!</div>
   </div>
 
 </body>
 
 <script>
   var navigate = function(event) {
-    if (event === "touch" || event.keyCode === 13) {
+    if (event === "click" || event.keyCode === 13) {
       window.location.href = "lunar.html";
     }
   };
