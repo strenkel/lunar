@@ -1,14 +1,19 @@
-// add libraries
+// add libraries lunarcontrol and delayer
 
-var readline = require('readline');
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+(function(myLunarcontrol, myDelayer) {
 
-var Logger = {
-  log: console.log,
-  prompt: rl.question.bind(rl)
-};
+  var readline = require('readline');
+  var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-lunarcontrol.run(Logger);
+  var Logger = {
+    log: myDelayer.delay(console.log),
+    prompt: myDelayer.delay(rl.question.bind(rl))
+  };
+
+  console.log();
+  myLunarcontrol.run(Logger);
+
+}) (lunarcontrol, delayer);
