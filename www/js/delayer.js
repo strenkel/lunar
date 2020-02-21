@@ -7,10 +7,8 @@ var delayer = (function() {
   // --- PUBLIC METHODS ---
 
   /**
-   * Put the callback on a stack and execute the callbacks on the stack with a delay of delayTime ms.
-   * Between each callback call is a delay of delayTime ms. delayTime is the minimun delay.
-   * 
-   * @param {Function} callback 
+   * @param {Function} callbacks
+   * @returns {Function}
    */
   var delay = function(callback) {
     return function() {
