@@ -1,3 +1,5 @@
+// add libraries
+
 var readline = require('readline');
 var rl = readline.createInterface({
   input: process.stdin,
@@ -9,4 +11,4 @@ var Logger = {
   prompt: rl.question.bind(rl)
 };
 
-require('./llrunner.js').run(Logger);
+lunarcontrol.run(Logger);
