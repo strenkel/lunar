@@ -13,7 +13,10 @@
     prompt: myDelayer.delay(rl.question.bind(rl))
   };
 
-  console.log();
-  myLunarcontrol.run(Logger);
+  Logger.log();
+  myLunarcontrol.run(Logger, function() {
+    Logger.log();
+    rl.close();
+  });
 
 }) (lunarcontrol, delayer);

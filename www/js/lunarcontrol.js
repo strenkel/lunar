@@ -6,6 +6,7 @@ var lunarcontrol = (function(myLunarCalc) {
   "use strict";
 
   var inOut;
+  var controlOutCallback;
 
   // --- PUBLIC METHODS ---
 
@@ -15,10 +16,13 @@ var lunarcontrol = (function(myLunarCalc) {
    * myInOut is an object implementing two functions log and prompt.
    * log should accept a string for output and prompt should accept a string for output
    * and a callback function for input. The callback should be called with the string input.
+   * 
+   * myControlOutCallback is called, when user choose 'CONTROL OUT'.
    */
-  var run = function(myInOut) {
+  var run = function(myInOut, myControlOutCallback) {
 
     inOut = myInOut;
+    controlOutCallback = myControlOutCallback || function() {};
 
     logIntro();
     doLanding();
@@ -166,7 +170,7 @@ var lunarcontrol = (function(myLunarCalc) {
         doLanding();
       } else if (answer === "NO") {
         inOut.log("CONTROL OUT");
-        rl.close();
+        controlOutCallback();
       } else {
         tryAgain();
       }
