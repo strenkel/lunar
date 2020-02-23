@@ -9,7 +9,7 @@ Just open index.html in your browser.
 Clone the repo and run 'node node/ll.js'.
 
 # BUILD
-Browser (files in www): no build nessecary.
+Browser (files in www): no build necessary.
 Node: Run 'sh buildnode.sh' (linux only) to build node/ll.js.
 
 # HOSTED AT:
