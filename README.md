@@ -12,6 +12,6 @@ Clone the repo and run 'node node/ll.js'.
 Browser (files in www): no build necessary.
 Node: Run 'sh buildnode.sh' (linux only) to build node/ll.js.
 
-# HOSTED AT:
+# HOSTED AT
 https://lunar69.uber.space/
 
